@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-xfce-vnc
+  labels:
+    app: ubuntu-xfce-vnc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu-xfce-vnc
+  template:
+    metadata:
+      labels:
+        app: ubuntu-xfce-vnc
+    spec:
+      containers:
+      - name: ubuntu-xfce-vnc
+        image: wheresmycookie/ubuntu-xfce:<version>
+        ports:
+        - containerPort: 5900
+          name: vnc

@@ -20,6 +20,16 @@ this project uses tightvnc VNC server.
 
 ## Starting the project
 
+First, build the project. **It's important to note that you'll have to choose the architecture that you want to build for, especially if installing Zoom via .deb package**:
+
+`docker buildx build --platform linux/amd64 -t wheresmycookie/ubuntu-xfce:<tag> .`
+
+Make sure your docker engine is up to date to use buildx.
+
+Now run the image:
+
 `docker run -p 5901:5901 wheresmycookie/ubuntu-xfce`
+
+If you built for multiple architectures, you can specify: for example, `--platform linux/amd64`. Note that you may build/run the image for any architecture, but if installing zoom via the deb file you'll need to build/run for amd64.
 
 The default password is "password", but this can be configured via the dockerfile

@@ -13,7 +13,7 @@ RUN apt-get update && \
     apt-get install -y sudo && \
     apt-get clean
 
-# Install Firefox
+RUN apt-get install -y autocutsel # copy / paste across vnc
 RUN apt-get install -y firefox && apt-get clean
 
 # Setup VNC server
@@ -36,4 +36,3 @@ EXPOSE 5901
 
 # Start the VNC server and create the file on the Desktop
 CMD ["/root/startup.sh"]
-
