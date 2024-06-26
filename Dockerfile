@@ -7,14 +7,22 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y tzdata && \
     apt-get install -y xfce4 && \
-    apt-get install -y xfce4-goodies && \
     apt-get install -y tightvncserver && \
     apt-get install -y wget && \
     apt-get install -y sudo && \
     apt-get clean
 
-RUN apt-get install -y autocutsel # copy / paste across vnc
-RUN apt-get install -y firefox && apt-get clean
+RUN apt-get install -y autocutsel
+RUN apt-get install -y python3 python3-pip
+RUN apt-get clean
+
+# Install noVNC and websockify
+RUN pip3 install --upgrade pip setuptools wheel
+RUN pip3 install websockify
+RUN wget -O /tmp/novnc.zip https://github.com/novnc/noVNC/archive/refs/heads/master.zip
+RUN unzip /tmp/novnc.zip -d /opt
+RUN mv /opt/noVNC-master /opt/novnc
+RUN rm /tmp/novnc.zip
 
 # Setup VNC server
 RUN mkdir -p /root/.vnc && \
@@ -31,8 +39,9 @@ RUN chmod +x /root/startup.sh
 # Set USER environment variable
 ENV USER=root
 
-# Expose VNC port
+# Expose VNC and noVNC ports
 EXPOSE 5901
+EXPOSE 6080
 
-# Start the VNC server and create the file on the Desktop
+# Start the VNC server and noVNC
 CMD ["/root/startup.sh"]
