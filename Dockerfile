@@ -11,6 +11,10 @@ RUN apt-get update && \
     apt-get install -y tightvncserver && \
     apt-get install -y wget && \
     apt-get install -y sudo && \
+    apt-get install -y curl && \
+    apt-get install -y pulseaudio && \
+    apt-get install -y sox && \
+    apt-get install -y libsox-fmt-all && \
     apt-get clean
 
 RUN apt-get install -y autocutsel # copy / paste across vnc
@@ -27,6 +31,10 @@ RUN chmod +x /root/.vnc/xstartup
 # Copy startup script
 COPY startup.sh /root/startup.sh
 RUN chmod +x /root/startup.sh
+
+# Move zoom config
+RUN mkdir -p /root/.config
+COPY zoomus.conf /root/.config/zoomus.conf
 
 # Set USER environment variable
 ENV USER=root

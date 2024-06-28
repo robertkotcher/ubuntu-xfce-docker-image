@@ -26,6 +26,14 @@ First, build the project. **It's important to note that you'll have to choose th
 
 Make sure your docker engine is up to date to use buildx.
 
+## env variables
+
+### SIGNED_URL
+
+`gcloud storage sign-url generate gs://your-bucket-name/your-object-name --duration=1h`
+
+### NUM_SECONDS
+
 Now run the image:
 
 `docker run -p 5901:5901 wheresmycookie/ubuntu-xfce`
