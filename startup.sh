@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/sh
+
+export DISPLAY=:1.0
+
 # Start the VNC server
 vncserver -geometry 1280x800 -depth 24
 
@@ -6,4 +9,6 @@ vncserver -geometry 1280x800 -depth 24
 autocutsel -fork
 
 # Start websockify and noVNC
-websockify --web /opt/novnc --wrap-mode=ignore 6080 localhost:5901
+# websockify --web /opt/novnc --wrap-mode=ignore 6080 localhost:5901
+
+tail  /root/.vnc/*.log
