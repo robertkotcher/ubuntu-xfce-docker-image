@@ -10,10 +10,13 @@ RUN apt-get update && \
     apt-get install -y tightvncserver && \
     apt-get install -y wget && \
     apt-get install -y sudo && \
+    apt-get install -y git && \
+    apt-get install -y xfce4-terminal && \
     apt-get clean
 
 RUN apt-get install -y autocutsel
 RUN apt-get install -y python3 python3-pip
+RUN apt-get install firefox -y
 RUN apt-get clean
 
 # Setup VNC server
@@ -24,6 +27,9 @@ RUN mkdir -p /root/.vnc && \
 COPY xstartup /root/.vnc/xstartup
 RUN chmod +x /root/.vnc/xstartup
 
+# Install noVNC
+RUN git clone https://github.com/novnc/noVNC.git /root/noVNC
+
 # Copy startup script
 COPY startup.sh /root/startup.sh
 RUN chmod +x /root/startup.sh
@@ -31,8 +37,9 @@ RUN chmod +x /root/startup.sh
 # Set USER environment variable
 ENV USER=root
 
-# Expose VNC and noVNC ports
+# Expose NoVNC port
 EXPOSE 5901
+EXPOSE 6081
 
 # Start the VNC server and noVNC
 CMD ["/root/startup.sh"]

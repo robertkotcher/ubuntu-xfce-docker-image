@@ -18,18 +18,28 @@ VNC (Virtual Network Computing) is a graphical desktop-sharing system that uses 
 
 this project uses tightvnc VNC server.
 
-## Starting the project
+## What is noVNC
+
+noVNC is both a VNC client JavaScript library as well as an application built on top of that library. noVNC runs well in any modern browser including mobile browsers (iOS and Android).
+
+## Building the project
 
 First, build the project. **It's important to note that you'll have to choose the architecture that you want to build for, especially if installing Zoom via .deb package**:
+
+### Simple build
+
+`docker build -t <tag> .`
+
+### Specify architecture
 
 `docker buildx build --platform linux/amd64 -t wheresmycookie/ubuntu-xfce:<tag> .`
 
 Make sure your docker engine is up to date to use buildx.
 
-Now run the image:
+## Running the container
 
-`docker run -p 5901:5901 wheresmycookie/ubuntu-xfce`
+`docker run -p 5901:5901 -p 6081:6081 <tag>`
 
-If you built for multiple architectures, you can specify: for example, `--platform linux/amd64`. Note that you may build/run the image for any architecture, but if installing zoom via the deb file you'll need to build/run for amd64.
+You can now point the host browser to `http://localhost:6081/vnc.html?host=0.0.0.0&port=6081`
 
 The default password is "password", but this can be configured via the dockerfile
