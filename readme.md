@@ -1,5 +1,7 @@
 # Ubuntu XFCE VNC Docker Image
 
+![ubuntu xfce](https://raw.githubusercontent.com/robertkotcher/ubuntu-xfce-docker-image/master/xfce.png)
+
 ## Project Overview
 
 This project provides a Docker image that runs an Ubuntu-based environment with the XFCE desktop environment accessible via VNC. The image includes Firefox pre-installed. Comment this out of the dockerfile if you don't plan on using a web browser.

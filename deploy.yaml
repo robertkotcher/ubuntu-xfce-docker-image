@@ -16,7 +16,9 @@ spec:
     spec:
       containers:
       - name: ubuntu-xfce-vnc
-        image: wheresmycookie/ubuntu-xfce:14
+        image: <your registry>
         ports:
         - containerPort: 5900
           name: vnc
+        - containerPort: 6081
+          name: novnc
