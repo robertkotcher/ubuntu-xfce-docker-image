@@ -30,18 +30,26 @@ First, build the project. **It's important to note that you'll have to choose th
 
 ### Simple build
 
-`docker build -t <tag> .`
+`docker build -t ubuntu-xfce .`
 
 ### Specify architecture
 
-`docker buildx build --platform linux/amd64 -t wheresmycookie/ubuntu-xfce:<tag> .`
+`docker buildx build --platform linux/amd64 -t ubuntu-xfce:latest .`
 
-Make sure your docker engine is up to date to use buildx.
+Make sure your docker engine is up to date to use buildx easily.
 
 ## Running the container
 
-`docker run -p 5901:5901 -p 6081:6081 <tag>`
+`docker run -p 5901:5901 -p 6081:6081 ubuntu-xfce:latest`
 
-You can now point the host browser to `http://localhost:6081/vnc.html?host=0.0.0.0&port=6081`
+You can mount to a volume & run as a daemon
+
+`docker run -d -p 5901:5901 -p 6081:6081 -v my_volume:/root ubuntu-xfce`
+
+You can now point the host browser to `http://localhost:6081/vnc.html?host=0.0.0.0&port=6081`, or alternatively use a VNC server and point to localhost:5901.
 
 The default password is "password", but this can be configured via the dockerfile
+
+## Todo
+
+Set up pulseaudio to optionally enable sound (I didn't need it yet so I didn't do it :D)
