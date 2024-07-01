@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ubuntu-xfce-vnc
+  labels:
+    app: ubuntu-xfce-vnc
+spec:
+  template:
+    metadata:
+      labels:
+        app: ubuntu-xfce-vnc
+    spec:
+      containers:
+      - name: ubuntu-xfce-vnc
+        image: wheresmycookie/ubuntu-xfce:38
+        ports:
+        - containerPort: 5900
+          name: vnc
+        env:
+        - name: NUM_SECONDS
+          value: "100"
+        - name: SIGNED_URL
+          value: "https://storage.googleapis.com/bot-meetings/test.wav?Expires=1719922604&GoogleAccessId=kahuna-ai-app%40kahuna-ai.iam.gserviceaccount.com&Signature=edMYuuBpoVto%2BbZoSRabgfo4UG1kt63z7snFZQdLKzWjHzOTNSrJj3XxthI5K9eig%2BMuLR30Njm5QuSCqcH%2BpMnefLZVdWcI0cEU893HymIrGNLt9Rpzot9nV4F9QLK%2FUYBRGOMJIGgL7Y7pkVeAm1Vsa6pxbFzhl6fSav%2FdnNJ5YoxRX%2BqFDQTSJzAEKRHGGAJdFPr6s0%2BSTNhu%2BX%2Bm1iq9TCR%2FmcWaftcpHwTGm8GedHQB4zHVTEonU02gqjWEB1GzHrgYqwi2N57wsagJnQ96WYVAeILDT7g5VcvCVn0LdOvZRU97n2hnnBNw4LkZsyAUxnmf2nZG0pKThbVEAg%3D%3D"
+        - name: MEETING_INVITE_LINK
+          value: "zoommtg://zoom.us/join?action=join&confno=71256465735&pwd=SqQFWjwJ076LY5vVHMRt3rbuLZRNtK.1&uname=robbb"
+      restartPolicy: Never

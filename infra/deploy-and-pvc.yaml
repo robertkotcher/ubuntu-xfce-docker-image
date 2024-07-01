@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-volume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data" # Host path where data will be stored
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-xfce-vnc
+  labels:
+    app: ubuntu-xfce-vnc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu-xfce-vnc
+  template:
+    metadata:
+      labels:
+        app: ubuntu-xfce-vnc
+    spec:
+      containers:
+      - name: ubuntu-xfce-vnc
+        image: wheresmycookie/ubuntu-xfce:34
+        ports:
+        - containerPort: 6801
+          name: vnc
+        volumeMounts:
+        - mountPath: /root
+          name: root-storage
+      volumes:
+      - name: root-storage
+        persistentVolumeClaim:
+          claimName: pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ubuntu-xfce-vnc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 6801
+    targetPort: 6801
+    protocol: TCP
+    name: vnc
+  selector:
+    app: ubuntu-xfce-vnc
