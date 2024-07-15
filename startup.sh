@@ -102,6 +102,7 @@ sleep $NUM_SECONDS
 kill $RECORD_PID
 kill $ZOOM_PID
 
-curl -X PUT -T out/meeting_audio.wav "$SIGNED_URL"
+ffmpeg -i out/meeting_audio.wav -ac 1 out/meeting_audio_1chan.wav
+curl -X PUT -T out/meeting_audio_1chan.wav "$SIGNED_URL"
 
 sleep 5

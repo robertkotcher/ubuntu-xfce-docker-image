@@ -17,6 +17,7 @@ RUN apt-get update && \
     apt-get install -y libsox-fmt-all && \
     apt-get clean
 
+RUN apt-get install -y ffmpeg
 RUN apt-get install -y autocutsel # copy / paste across vnc
 RUN apt-get install -y firefox && apt-get clean
 
